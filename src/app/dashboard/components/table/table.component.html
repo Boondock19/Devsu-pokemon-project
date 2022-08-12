@@ -1,1 +1,31 @@
-<p>table works!</p>
+<div class="container">
+    <div >
+        <h4 class="title">Listado de Pokemon</h4>
+    </div>
+    <div class="header">
+        <div class="search-bar-div">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input class="search-input" type="text" placeholder="Buscar">
+        </div>
+        <div class="new-button-div">
+            <button class="new-button">+ NUEVO</button>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th *ngFor="let col of columns">{{col.caption}}</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+    
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

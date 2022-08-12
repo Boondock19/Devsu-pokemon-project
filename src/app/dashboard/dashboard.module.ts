@@ -14,6 +14,6 @@ import { NewPokemonComponent } from './components/new-pokemon/new-pokemon.compon
   ],
   imports: [
     CommonModule
-  ]
+  ],
 })
 export class DashboardModule { }

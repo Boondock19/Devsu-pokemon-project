@@ -1,0 +1,44 @@
+.container {
+
+}
+
+.title {
+    margin-left: 1.5rem;
+}
+
+.header {
+    margin-top: 1em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-bar-div {
+    margin-left: 6em;
+}
+
+.search-input {
+    border: 1px solid rgb(135, 138, 138);
+    padding: 0.35em;
+}
+
+.new-button-div {
+    margin-right: 6em;
+}
+
+.table-responsive {
+    margin-top: 2em;
+    display: flex;
+    flex-direction: column;
+}
+
+.table {
+    color: black
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table ,th ,td {
+    border: 1px solid rgb(135, 138, 138);
+}
