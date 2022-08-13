@@ -8,7 +8,7 @@
             <input class="search-input" type="text" placeholder="Buscar">
         </div>
         <div class="new-button-div">
-            <button class="new-button"><fa-icon class="update-icon icon" [icon]="faPlus"></fa-icon> NUEVO</button>
+            <button class="new-button" (click)="openNewModal()"><fa-icon class="update-icon icon" [icon]="faPlus"></fa-icon> NUEVO</button>
         </div>
     </div>
     <div class="table-responsive">
@@ -29,7 +29,7 @@
                     </div>
                     
                     <td>
-                        <fa-icon (click)="openUpdateModal()" class="update-icon icon purple" [icon]="faPenToSquare"></fa-icon>
+                        <fa-icon (click)="openUpdateModal(pokemon)" class="update-icon icon purple" [icon]="faPenToSquare"></fa-icon>
                         <fa-icon (click)="deletePokemon(pokemon['id'])" class="purple icon" [icon]="faTrashCanArrowUp"></fa-icon>
                     </td>
                 </tr>
@@ -39,52 +39,52 @@
 </div>
 
 
-<div class="update-pokemon">
+<div class="update-pokemon" *ngIf="updateModal">
     <div class="card">
         <div>
             <h4>Actualizar Pokemon</h4>
         </div>
 
         <div class="form-container">
-            <form action="">
+            <form [formGroup]="updateForm" (ngSubmit)="updatePokemon()">
                 <div class="form-div">
                     <div >
                         <span for="name">Nombre: </span>
-                        <input class="input-form" type="text" name="name" id="name">
+                        <input class="input-form" type="text" formControlName="name" id="name" [ngClass]="{'input-form-error': updateForm.controls['name'].errors && (updateForm.controls['name'].touched || updateForm.controls['name'].dirty)}">
                     </div>
     
         
                     <div class="range-div">
                         <span for="attack">Ataque: 0 </span>
-                        <input type="range" name="attack" class="range-input" id="attack">
+                        <input  type="range" formControlName="attack" class="range-input"  id="attack">
                         <span> 100</span>
                     </div>
 
                     <div>
                         <span for="image">Imagen:</span>
-                        <input type="text" class="input-form" style="margin-left: 0.6em;" name="image" id="image">
+                        <input class="input-form" type="text" class="input-form" style="margin-left: 0.6em;" formControlName="image" id="image" [ngClass]="{'input-form-error': updateForm.controls['image'].errors && (updateForm.controls['image'].touched || updateForm.controls['image'].dirty)}">
                     </div>
     
                     <div class="range-div">
                         <span for="defense">Defensa: 0</span>
-                        <input type="range" name="defense" class="range-input" id="defense">
+                        <input type="range" formControlName="defense" class="range-input" id="defense">
                         <span for="defense"> 100</span>
                     </div>
 
                     <div >
                         <span for="type">Tipo: </span>
-                        <input class="input-form" type="text" style="margin-left: 1.6em;" name="type" id="type">
+                        <input class="input-form" type="text" style="margin-left: 1.6em;" formControlName="type" id="type" [ngClass]="{'input-form-error': updateForm.controls['type'].errors && (updateForm.controls['type'].touched || updateForm.controls['type'].dirty)}">
                     </div>
 
                     <div class="range-div">
                         <span for="hp">HP: 0</span>
-                        <input type="range" name="hp" class="range-input" id="hp">
+                        <input type="range" formControlName="hp" class="range-input" id="hp">
                         <span for="hp"> 100</span>
                     </div>
                 </div>
                 <div class="form-buttons">
-                    <button class="new-button" style="margin-right: 1em;"><fa-icon class="update-icon icon" [icon]="faFloppyDisk"></fa-icon>Guardar</button>
-                    <button class="new-button"><fa-icon class="update-icon icon" [icon]="faxMark"></fa-icon>Cancelar</button>
+                    <button class="new-button" style="margin-right: 1em;" type="button" [disabled]="!updateForm.valid" (click)="updatePokemon()"><fa-icon class="update-icon icon" [icon]="faFloppyDisk" ></fa-icon>Guardar</button>
+                    <button class="new-button" type="button" (click)="closeUpdateModal()"><fa-icon class="update-icon icon" [icon]="faxMark" ></fa-icon>Cancelar</button>
                 </div>
             </form>
         </div>
@@ -135,8 +135,8 @@
                     </div>
                 </div>
                 <div class="form-buttons">
-                    <button class="new-button" style="margin-right: 1em;"><fa-icon class="update-icon icon" [icon]="faFloppyDisk"></fa-icon>Guardar</button>
-                    <button class="new-button"><fa-icon class="update-icon icon" [icon]="faxMark"></fa-icon>Cancelar</button>
+                    <button class="new-button" style="margin-right: 1em;" type="button"><fa-icon class="update-icon icon" [icon]="faFloppyDisk"></fa-icon>Guardar</button>
+                    <button class="new-button" type="button"><fa-icon class="update-icon icon" [icon]="faxMark"></fa-icon>Cancelar</button>
                 </div>
             </form>
         </div>

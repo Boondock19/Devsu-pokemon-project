@@ -39,9 +39,17 @@
     border: solid rgb(112, 46, 218)
 }
 
+
+
 .new-button:hover {
     cursor: pointer;
     color: black;
+}
+
+.new-button:disabled {
+    opacity: 25%;
+    cursor:default;
+    color: white;
 }
 
 .table-responsive {
@@ -118,6 +126,12 @@
 
 .input-form {
     border: 2px solid rgb(183, 183, 183);
+    padding: 0.35em 1.5em;
+    border-radius: 6%;
+}
+
+.input-form-error {
+    border: 2px solid rgb(227, 3, 3);
     padding: 0.35em 1.5em;
     border-radius: 6%;
 }

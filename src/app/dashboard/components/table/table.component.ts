@@ -37,7 +37,9 @@ export class TableComponent implements OnInit {
     name: new FormControl('',Validators.required),
     image: new FormControl('',Validators.required),
     attack: new FormControl('',Validators.required),
-    defense: new FormControl('',Validators.required)
+    defense: new FormControl('',Validators.required),
+    type: new FormControl('',Validators.required),
+    hp: new FormControl('',Validators.required),
   })
 
 
@@ -45,14 +47,15 @@ export class TableComponent implements OnInit {
     name: new FormControl('',Validators.required),
     image: new FormControl('',Validators.required),
     attack: new FormControl('',Validators.required),
-    defense: new FormControl('',Validators.required)
+    defense: new FormControl('',Validators.required),
+    type: new FormControl('',Validators.required),
+    hp: new FormControl('',Validators.required),
   })
 
   constructor( private _tableService : TableService) { }
 
   ngOnInit(){
     this.getAllPokemons()
-    console.log(this.pokemons)
   }
 
 
@@ -63,16 +66,16 @@ export class TableComponent implements OnInit {
     this._tableService.getAllPokemons()
     .subscribe((data:any) => {
       this.pokemons = data
-      console.log(this.pokemons)
     })
   }
 
   /**
    * Funcion para abrir el modal de update de un pokemon
    */
-  openUpdateModal() {
-    this.updateModal = true
-
+  openUpdateModal(pokemon:any) {
+    this.updateModal = !this.updateModal
+    console.log(pokemon)
+    console.log(this.updateForm)
   }
 
   /**
@@ -81,7 +84,19 @@ export class TableComponent implements OnInit {
 
   updatePokemon() {
     console.log("Actualizamos pokemon")
+    console.log('alo?S')
   }
+
+  closeUpdateModal() {
+    this.updateModal = false
+  }
+
+   /**
+   * Funcion para abrir el modal de update de un pokemon
+   */
+    openNewModal() {
+      this.newModal = !this.newModal
+    }
   
 
   /**
