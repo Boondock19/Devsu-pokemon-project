@@ -1,22 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { faFloppyDisk, faMagnifyingGlass, faPenToSquare, faPlus, faTrashCanArrowUp, faXmark } from '@fortawesome/free-solid-svg-icons';
+import {
+  faFloppyDisk,
+  faMagnifyingGlass,
+  faPenToSquare,
+  faPlus,
+  faTrashCanArrowUp,
+  faXmark,
+} from '@fortawesome/free-solid-svg-icons';
 import { TableService } from '../../services/table.service';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.css']
+  styleUrls: ['./table.component.css'],
 })
 export class TableComponent implements OnInit {
-
-   // Columnas con nombre y fields a traerse del backend
+  // Columnas con nombre y fields a traerse del backend
   columns = [
-    {field: 'name', caption: 'Nombre'},
-    {field: 'image', caption: 'Imagen'}, 
-    {field: 'attack', caption: 'Ataque'}, 
-    {field: 'defense', caption: 'Defensa'},  
-  ]
+    { field: 'name', caption: 'Nombre' },
+    { field: 'image', caption: 'Imagen' },
+    { field: 'attack', caption: 'Ataque' },
+    { field: 'defense', caption: 'Defensa' },
+  ];
 
   // simbolos de fontAwesome
   faMagnifyingGlass = faMagnifyingGlass;
@@ -27,56 +33,52 @@ export class TableComponent implements OnInit {
   faxMark = faXmark;
 
   // Todos los pokemons de la DB
-  pokemons: any[] = []
-
+  pokemons: any[] = [];
 
   updateModal = false;
-  newModal = true;
+  newModal = false;
 
-  updateForm : FormGroup = new FormGroup({
-    name: new FormControl('',Validators.required),
-    image: new FormControl('',Validators.required),
-    attack: new FormControl('',Validators.required),
-    defense: new FormControl('',Validators.required),
-    type: new FormControl('',Validators.required),
-    hp: new FormControl('',Validators.required),
-  })
+  updateForm: FormGroup = new FormGroup({
+    name: new FormControl('', Validators.required),
+    image: new FormControl('', Validators.required),
+    attack: new FormControl('', Validators.required),
+    defense: new FormControl('', Validators.required),
+    type: new FormControl('', Validators.required),
+    hp: new FormControl('', Validators.required),
+  });
 
+  newForm: FormGroup = new FormGroup({
+    name: new FormControl('', Validators.required),
+    image: new FormControl('', Validators.required),
+    attack: new FormControl('', Validators.required),
+    defense: new FormControl('', Validators.required),
+    type: new FormControl('', Validators.required),
+    hp: new FormControl('', Validators.required),
+  });
 
-  newForm : FormGroup = new FormGroup({
-    name: new FormControl('',Validators.required),
-    image: new FormControl('',Validators.required),
-    attack: new FormControl('',Validators.required),
-    defense: new FormControl('',Validators.required),
-    type: new FormControl('',Validators.required),
-    hp: new FormControl('',Validators.required),
-  })
+  updateId = 0;
+  updateIndex = 0;
 
-  updateId = 0
-  updateIndex = 0
+  constructor(private _tableService: TableService) {}
 
-  constructor( private _tableService : TableService) { }
-
-  ngOnInit(){
-    this.getAllPokemons()
+  ngOnInit() {
+    this.getAllPokemons();
   }
-
 
   /**
    * Funcion para obtener los pokemones de la DB
    */
   getAllPokemons() {
-    this._tableService.getAllPokemons()
-    .subscribe((data:any) => {
-      this.pokemons = data
-    })
+    this._tableService.getAllPokemons().subscribe((data: any) => {
+      this.pokemons = data;
+    });
   }
 
   /**
    * Funcion para abrir el modal de update de un pokemon
    */
-  openUpdateModal(pokemon:any,index:number) {
-    this.updateModal = !this.updateModal
+  openUpdateModal(pokemon: any, index: number) {
+    this.updateModal = !this.updateModal;
     this.updateForm.setValue({
       name: pokemon.name,
       image: pokemon.image,
@@ -84,46 +86,65 @@ export class TableComponent implements OnInit {
       defense: pokemon.defense,
       type: pokemon.type,
       hp: pokemon.hp,
-    })
+    });
 
-    this.updateId = pokemon.id
-    this.updateIndex = index
+    this.updateId = pokemon.id;
+    this.updateIndex = index;
   }
 
   /**
-   * Funcion para hacer la peticion de hacer update de un pokemon
+   * Funcion para hacer la peticion de hacer update de un pokemon y manejar
+   * la actualizacion en tiempo real.
    */
 
   updatePokemon() {
-
-    this._tableService.updatePokemon(this.updateId,this.updateForm)
-    .subscribe((data:any) => {
-      this.pokemons[this.updateIndex] = data
-      this.updateForm.reset()
-      this.updateModal = false
-
-    })
+    this._tableService
+      .updatePokemon(this.updateId, this.updateForm)
+      .subscribe((data: any) => {
+        this.pokemons[this.updateIndex] = data;
+        this.updateForm.reset();
+        this.updateModal = false;
+      });
   }
 
   closeUpdateModal() {
-    this.updateModal = false
+    this.updateModal = false;
   }
-
-   /**
-   * Funcion para abrir el modal de update de un pokemon
-   */
-    openNewModal() {
-      this.newModal = !this.newModal
-    }
-  
 
   /**
-   * Funcion para abrir el modal de create de un pokemon
+   * Funcion para abrir el modal de update de un pokemon
    */
+  openNewModal() {
+    this.newModal = !this.newModal;
+  }
 
-  deletePokemon(id:string) {
-    console.log(`Borramos pokemon con id ${id}`)
+  /**
+   * Funcion para cerrar el modal de new pokemon
+   */
+  closeNewModal() {
+    this.newModal = false;
   }
 
 
+  /**
+   * Funcion para hacer la peticion de hacer post de un pokemon y manejar
+   * la actualizacion en tiempo real.
+   */
+  postPokemon() {
+    this._tableService.postPokemon(this.newForm).subscribe((data: any) => {
+      this.pokemons.push(data);
+      this.newForm.reset();
+      this.newModal = false;
+    });
+  }
+
+  /**
+   * Funcion para abrir el modal de create de un pokemon y manejar la actualiacion en tiempo real.
+   */
+
+  deletePokemon(id: number, index: number) {
+    this._tableService.deletePokemon(id).subscribe((data: any) => {
+      this.pokemons.splice(index, 1);
+    });
+  }
 }

@@ -1,146 +1,285 @@
 <div class="container">
-    <div >
-        <h4 class="title">Listado de Pokemon</h4>
+  <div>
+    <h4 class="title">Listado de Pokemon</h4>
+  </div>
+  <div class="header">
+    <div class="search-bar-div">
+      <fa-icon class="search-icon" [icon]="faMagnifyingGlass"></fa-icon>
+      <input class="search-input" type="text" placeholder="Buscar" />
     </div>
-    <div class="header">
-        <div class="search-bar-div">
-            <fa-icon class="search-icon" [icon]="faMagnifyingGlass" ></fa-icon>
-            <input class="search-input" type="text" placeholder="Buscar">
-        </div>
-        <div class="new-button-div">
-            <button class="new-button" (click)="openNewModal()"><fa-icon class="update-icon icon" [icon]="faPlus"></fa-icon> NUEVO</button>
-        </div>
+    <div class="new-button-div">
+      <button class="new-button" (click)="openNewModal()">
+        <fa-icon class="update-icon icon" [icon]="faPlus"></fa-icon> NUEVO
+      </button>
     </div>
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th *ngFor="let col of columns">{{col.caption}}</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let pokemon of pokemons, let i = index">
-                    <div class="div-td" *ngFor="let col of columns">
-                        <td *ngIf="col.field != 'image'">{{pokemon[col.field]}}</td>
-                        <td *ngIf="col.field == 'image'">
-                            <img class="pokemon-img" src="{{pokemon[col.field]}}" >
-                        </td>
-                    </div>
-                    
-                    <td>
-                        <fa-icon (click)="openUpdateModal(pokemon,i)" class="update-icon icon purple" [icon]="faPenToSquare"></fa-icon>
-                        <fa-icon (click)="deletePokemon(pokemon['id'])" class="purple icon" [icon]="faTrashCanArrowUp"></fa-icon>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th *ngFor="let col of columns">{{ col.caption }}</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pokemon of pokemons; let i = index">
+          <div class="div-td" *ngFor="let col of columns">
+            <td *ngIf="col.field != 'image'">{{ pokemon[col.field] }}</td>
+            <td *ngIf="col.field == 'image'">
+              <img class="pokemon-img" src="{{ pokemon[col.field] }}" />
+            </td>
+          </div>
+
+          <td>
+            <fa-icon
+              (click)="openUpdateModal(pokemon, i)"
+              class="update-icon icon purple"
+              [icon]="faPenToSquare"
+            ></fa-icon>
+            <fa-icon
+              (click)="deletePokemon(pokemon['id'], i)"
+              class="purple icon"
+              [icon]="faTrashCanArrowUp"
+            ></fa-icon>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
-
 <div class="update-pokemon" *ngIf="updateModal">
-    <div class="card">
-        <div>
-            <h4>Actualizar Pokemon</h4>
-        </div>
-
-        <div class="form-container">
-            <form [formGroup]="updateForm" (ngSubmit)="updatePokemon()">
-                <div class="form-div">
-                    <div >
-                        <span for="name">Nombre: </span>
-                        <input class="input-form" type="text" formControlName="name" id="name" [ngClass]="{'input-form-error': updateForm.controls['name'].errors && (updateForm.controls['name'].touched || updateForm.controls['name'].dirty)}">
-                    </div>
-    
-        
-                    <div class="range-div">
-                        <span for="attack">Ataque: 0 </span>
-                        <input  type="range" formControlName="attack" class="range-input"  id="attack">
-                        <span> 100</span>
-                    </div>
-
-                    <div>
-                        <span for="image">Imagen:</span>
-                        <input class="input-form" type="text" class="input-form" style="margin-left: 0.6em;" formControlName="image" id="image" [ngClass]="{'input-form-error': updateForm.controls['image'].errors && (updateForm.controls['image'].touched || updateForm.controls['image'].dirty)}">
-                    </div>
-    
-                    <div class="range-div">
-                        <span for="defense">Defensa: 0</span>
-                        <input type="range" formControlName="defense" class="range-input" id="defense">
-                        <span for="defense"> 100</span>
-                    </div>
-
-                    <div >
-                        <span for="type">Tipo: </span>
-                        <input class="input-form" type="text" style="margin-left: 1.6em;" formControlName="type" id="type" [ngClass]="{'input-form-error': updateForm.controls['type'].errors && (updateForm.controls['type'].touched || updateForm.controls['type'].dirty)}">
-                    </div>
-
-                    <div class="range-div">
-                        <span for="hp">HP: 0</span>
-                        <input type="range" formControlName="hp" class="range-input" id="hp">
-                        <span for="hp"> 100</span>
-                    </div>
-                </div>
-                <div class="form-buttons">
-                    <button class="new-button" style="margin-right: 1em;" type="button" [disabled]="!updateForm.valid" (click)="updatePokemon()"><fa-icon class="update-icon icon" [icon]="faFloppyDisk" ></fa-icon>Guardar</button>
-                    <button class="new-button" type="button" (click)="closeUpdateModal()"><fa-icon class="update-icon icon" [icon]="faxMark" ></fa-icon>Cancelar</button>
-                </div>
-            </form>
-        </div>
+  <div class="card">
+    <div>
+      <h4>Actualizar Pokemon</h4>
     </div>
+
+    <div class="form-container">
+      <form [formGroup]="updateForm" (ngSubmit)="updatePokemon()">
+        <div class="form-div">
+          <div>
+            <span for="name">Nombre: </span>
+            <input
+              class="input-form"
+              type="text"
+              placeholder="nombre"
+              formControlName="name"
+              id="name"
+              [ngClass]="{
+                'input-form-error':
+                  updateForm.controls['name'].errors &&
+                  (updateForm.controls['name'].touched ||
+                    updateForm.controls['name'].dirty)
+              }"
+            />
+          </div>
+
+          <div class="range-div">
+            <span for="attack">Ataque: 0 </span>
+            <input
+              type="range"
+              formControlName="attack"
+              class="range-input"
+              id="attack"
+            />
+            <span> 100</span>
+          </div>
+
+          <div>
+            <span for="image">Imagen:</span>
+            <input
+              class="input-form"
+              pattern="https://.*"
+              type="url"
+              placeholder="url"
+              class="input-form"
+              style="margin-left: 0.6em"
+              formControlName="image"
+              id="image"
+              [ngClass]="{
+                'input-form-error':
+                  updateForm.controls['image'].errors &&
+                  (updateForm.controls['image'].touched ||
+                    updateForm.controls['image'].dirty)
+              }"
+            />
+          </div>
+
+          <div class="range-div">
+            <span for="defense">Defensa: 0</span>
+            <input
+              type="range"
+              formControlName="defense"
+              class="range-input"
+              id="defense"
+            />
+            <span for="defense"> 100</span>
+          </div>
+
+          <div>
+            <span for="type">Tipo: </span>
+            <input
+              class="input-form"
+              type="text"
+              placeholder="tipo"
+              style="margin-left: 1.6em"
+              formControlName="type"
+              id="type"
+              [ngClass]="{
+                'input-form-error':
+                  updateForm.controls['type'].errors &&
+                  (updateForm.controls['type'].touched ||
+                    updateForm.controls['type'].dirty)
+              }"
+            />
+          </div>
+
+          <div class="range-div">
+            <span for="hp">HP: 0</span>
+            <input
+              type="range"
+              formControlName="hp"
+              class="range-input"
+              id="hp"
+            />
+            <span for="hp"> 100</span>
+          </div>
+        </div>
+        <div class="form-buttons">
+          <button
+            class="new-button"
+            style="margin-right: 1em"
+            type="button"
+            [disabled]="!updateForm.valid"
+            (click)="updatePokemon()"
+          >
+            <fa-icon class="update-icon icon" [icon]="faFloppyDisk"></fa-icon
+            >Guardar
+          </button>
+          <button class="new-button" type="button" (click)="closeUpdateModal()">
+            <fa-icon class="update-icon icon" [icon]="faxMark"></fa-icon
+            >Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 
 <div class="new-pokemon" *ngIf="newModal">
-    <div class="card">
-        <div>
-            <h4>Nuevo Pokemon</h4>
-        </div>
-
-        <div class="form-container">
-            <form action="">
-                <div class="form-div">
-                    <div >
-                        <span for="name">Nombre: </span>
-                        <input class="input-form" type="text" name="name" id="name">
-                    </div>
-    
-        
-                    <div class="range-div">
-                        <span for="attack">Ataque: 0 </span>
-                        <input type="range" name="attack" class="range-input" id="attack">
-                        <span> 100</span>
-                    </div>
-
-                    <div>
-                        <span for="image">Imagen:</span>
-                        <input type="text" class="input-form" style="margin-left: 0.6em;" name="image" id="image">
-                    </div>
-    
-                    <div class="range-div">
-                        <span for="defense">Defensa: 0</span>
-                        <input type="range" name="defense" class="range-input" id="defense">
-                        <span for="defense"> 100</span>
-                    </div>
-                    
-                    <div >
-                        <span for="type">Tipo: </span>
-                        <input class="input-form" type="text" style="margin-left: 1.6em;" name="type" id="type">
-                    </div>
-
-                    <div class="range-div">
-                        <span for="hp">HP: 0</span>
-                        <input type="range" name="hp" class="range-input" id="hp">
-                        <span for="hp"> 100</span>
-                    </div>
-                </div>
-                <div class="form-buttons">
-                    <button class="new-button" style="margin-right: 1em;" type="button"><fa-icon class="update-icon icon" [icon]="faFloppyDisk"></fa-icon>Guardar</button>
-                    <button class="new-button" type="button"><fa-icon class="update-icon icon" [icon]="faxMark"></fa-icon>Cancelar</button>
-                </div>
-            </form>
-        </div>
+  <div class="card">
+    <div>
+      <h4>Nuevo Pokemon</h4>
     </div>
+
+    <div class="form-container">
+      <form [formGroup]="newForm" (ngSubmit)="postPokemon()">
+        <div class="form-div">
+          <div>
+            <span for="name">Nombre: </span>
+            <input
+              class="input-form"
+              type="text"
+              placeholder="nombre"
+              formControlName="name"
+              id="name"
+              [ngClass]="{
+                'input-form-error':
+                  newForm.controls['name'].errors &&
+                  (newForm.controls['name'].touched ||
+                    newForm.controls['name'].dirty)
+              }"
+            />
+          </div>
+
+          <div class="range-div">
+            <span for="attack">Ataque: 0 </span>
+            <input
+              type="range"
+              formControlName="attack"
+              class="range-input"
+              id="attack"
+            />
+            <span> 100</span>
+          </div>
+
+          <div>
+            <span for="image">Imagen:</span>
+            <input
+              class="input-form"
+              pattern="https://.*"
+              type="url"
+              placeholder="url"
+              class="input-form"
+              style="margin-left: 0.6em"
+              formControlName="image"
+              id="image"
+              [ngClass]="{
+                'input-form-error':
+                  newForm.controls['image'].errors &&
+                  (newForm.controls['image'].touched ||
+                    newForm.controls['image'].dirty)
+              }"
+            />
+          </div>
+
+          <div class="range-div">
+            <span for="defense">Defensa: 0</span>
+            <input
+              type="range"
+              formControlName="defense"
+              class="range-input"
+              id="defense"
+            />
+            <span for="defense"> 100</span>
+          </div>
+
+          <div>
+            <span for="type">Tipo: </span>
+            <input
+              class="input-form"
+              type="text"
+              placeholder="tipo"
+              style="margin-left: 1.6em"
+              formControlName="type"
+              id="type"
+              [ngClass]="{
+                'input-form-error':
+                  newForm.controls['type'].errors &&
+                  (newForm.controls['type'].touched ||
+                    newForm.controls['type'].dirty)
+              }"
+            />
+          </div>
+
+          <div class="range-div">
+            <span for="hp">HP: 0</span>
+            <input
+              type="range"
+              formControlName="hp"
+              class="range-input"
+              id="hp"
+            />
+            <span for="hp"> 100</span>
+          </div>
+        </div>
+        <div class="form-buttons">
+          <button
+            class="new-button"
+            style="margin-right: 1em"
+            type="button"
+            [disabled]="!newForm.valid"
+            (click)="postPokemon()"
+          >
+            <fa-icon class="update-icon icon" [icon]="faFloppyDisk"></fa-icon
+            >Guardar
+          </button>
+          <button class="new-button" type="button" (click)="closeNewModal()">
+            <fa-icon class="update-icon icon" [icon]="faxMark"></fa-icon
+            >Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
-
-
