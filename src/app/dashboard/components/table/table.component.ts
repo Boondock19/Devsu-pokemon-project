@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faFloppyDisk, faMagnifyingGlass, faPenToSquare, faPlus, faTrashCanArrowUp, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { TableService } from '../../services/table.service';
 
@@ -30,7 +31,22 @@ export class TableComponent implements OnInit {
 
 
   updateModal = false;
-  newModal = false;
+  newModal = true;
+
+  updateForm : FormGroup = new FormGroup({
+    name: new FormControl('',Validators.required),
+    image: new FormControl('',Validators.required),
+    attack: new FormControl('',Validators.required),
+    defense: new FormControl('',Validators.required)
+  })
+
+
+  newForm : FormGroup = new FormGroup({
+    name: new FormControl('',Validators.required),
+    image: new FormControl('',Validators.required),
+    attack: new FormControl('',Validators.required),
+    defense: new FormControl('',Validators.required)
+  })
 
   constructor( private _tableService : TableService) { }
 
@@ -55,7 +71,8 @@ export class TableComponent implements OnInit {
    * Funcion para abrir el modal de update de un pokemon
    */
   openUpdateModal() {
-    console.log("Abrimos modal de update")
+    this.updateModal = true
+
   }
 
   /**
