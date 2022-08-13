@@ -8,7 +8,7 @@
             <input class="search-input" type="text" placeholder="Buscar">
         </div>
         <div class="new-button-div">
-            <button class="new-button">+ NUEVO</button>
+            <button class="new-button"><fa-icon class="update-icon icon" [icon]="faPlus"></fa-icon> NUEVO</button>
         </div>
     </div>
     <div class="table-responsive">
@@ -29,8 +29,8 @@
                     </div>
                     
                     <td>
-                        <fa-icon class="update-icon icon purple" [icon]="faPenToSquare"></fa-icon>
-                        <fa-icon class="purple icon" [icon]="faTrashCanArrowUp"></fa-icon>
+                        <fa-icon (click)="openUpdateModal()" class="update-icon icon purple" [icon]="faPenToSquare"></fa-icon>
+                        <fa-icon (click)="deletePokemon()" class="purple icon" [icon]="faTrashCanArrowUp"></fa-icon>
                     </td>
                 </tr>
             </tbody>

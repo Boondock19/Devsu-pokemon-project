@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faMagnifyingGlass, faPenToSquare, faTrashCanArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faPenToSquare, faPlus, faTrashCanArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { TableService } from '../../services/table.service';
 
 @Component({
@@ -20,6 +20,7 @@ export class TableComponent implements OnInit {
   faMagnifyingGlass = faMagnifyingGlass;
   faPenToSquare = faPenToSquare;
   faTrashCanArrowUp = faTrashCanArrowUp;
+  faPlus = faPlus;
 
   pokemons: any[] = []
 
@@ -31,6 +32,9 @@ export class TableComponent implements OnInit {
   }
 
 
+  /**
+   * Funcion para obtener los pokemones de la DB
+   */
   getAllPokemons() {
     this._tableService.getAllPokemons()
     .subscribe((data:any) => {
@@ -38,4 +42,30 @@ export class TableComponent implements OnInit {
       console.log(this.pokemons)
     })
   }
+
+  /**
+   * Funcion para abrir el modal de update de un pokemon
+   */
+  openUpdateModal() {
+    console.log("Abrimos modal de update")
+  }
+
+  /**
+   * Funcion para hacer la peticion de hacer update de un pokemon
+   */
+
+  updatePokemon() {
+    console.log("Actualizamos pokemon")
+  }
+  
+
+  /**
+   * Funcion para abrir el modal de create de un pokemon
+   */
+
+  deletePokemon() {
+    console.log("Borramos pokemon")
+  }
+
+
 }
