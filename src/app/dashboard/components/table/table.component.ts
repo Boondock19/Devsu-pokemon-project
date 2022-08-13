@@ -20,8 +20,10 @@ export class TableComponent implements OnInit {
   columns = [
     { field: 'name', caption: 'Nombre' },
     { field: 'image', caption: 'Imagen' },
+    { field: 'type', caption: 'Tipo' },
     { field: 'attack', caption: 'Ataque' },
     { field: 'defense', caption: 'Defensa' },
+    { field: 'hp', caption: 'HP' },
   ];
 
   // simbolos de fontAwesome
