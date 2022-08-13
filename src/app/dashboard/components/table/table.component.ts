@@ -63,8 +63,8 @@ export class TableComponent implements OnInit {
    * Funcion para abrir el modal de create de un pokemon
    */
 
-  deletePokemon() {
-    console.log("Borramos pokemon")
+  deletePokemon(id:string) {
+    console.log(`Borramos pokemon con id ${id}`)
   }
 
 

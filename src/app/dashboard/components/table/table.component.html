@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let pokemon of pokemons">
+                <tr *ngFor="let pokemon of pokemons, let i = index">
                     <div class="div-td" *ngFor="let col of columns">
                         <td *ngIf="col.field != 'image'">{{pokemon[col.field]}}</td>
                         <td *ngIf="col.field == 'image'">
@@ -30,10 +30,54 @@
                     
                     <td>
                         <fa-icon (click)="openUpdateModal()" class="update-icon icon purple" [icon]="faPenToSquare"></fa-icon>
-                        <fa-icon (click)="deletePokemon()" class="purple icon" [icon]="faTrashCanArrowUp"></fa-icon>
+                        <fa-icon (click)="deletePokemon(pokemon['id'])" class="purple icon" [icon]="faTrashCanArrowUp"></fa-icon>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+
+
+<div class="update-pokemon">
+    <div class="card">
+        <div>
+            <h4>Actualizar Pokemon</h4>
+        </div>
+
+        <div class="form-container">
+            <form action="">
+                <div class="form-div">
+                    <div >
+                        <span for="name">Nombre: </span>
+                        <input type="text" name="name" id="name">
+                    </div>
+    
+        
+                    <div class="range-div">
+                        <span for="attack">Ataque: 0 </span>
+                        <input type="range" name="attack" class="range-input" id="attack">
+                        <span> 100</span>
+                    </div>
+
+                    <div>
+                        <span for="image">Imagen: </span>
+                        <input type="text" name="image" id="image">
+                    </div>
+    
+                    <div class="range-div">
+                        <span for="defense">Defensa: 0</span>
+                        <input type="range" name="defense" class="range-input" id="defense">
+                        <span for="defense"> 100</span>
+                    </div>
+                </div>
+                <div class="form-buttons">
+                    <button>Guardar</button>
+                    <button>Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
