@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faPenToSquare, faTrashCanArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { TableService } from '../../services/table.service';
 
 @Component({
@@ -18,6 +18,8 @@ export class TableComponent implements OnInit {
   ]
 
   faMagnifyingGlass = faMagnifyingGlass;
+  faPenToSquare = faPenToSquare;
+  faTrashCanArrowUp = faTrashCanArrowUp;
 
   pokemons: any[] = []
 

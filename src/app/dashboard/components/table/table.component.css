@@ -41,6 +41,11 @@
     border: solid rgb(112, 46, 218)
 }
 
+.new-button:hover {
+    cursor: pointer;
+    color: black;
+}
+
 .table-responsive {
     margin-top: 2em;
     display: flex;
@@ -60,10 +65,28 @@
     max-height: 3em;
 }
 
+.update-icon {
+    margin-right: 1em;
+   
+}
+
+.purple {
+    color: rgb(112, 46, 218);
+}
+
+.icon:hover {
+    cursor: pointer;
+    color: black;
+}
+
 table {
     border-collapse: collapse;
 }
 
 table ,th ,td {
     border: 2px solid rgb(183, 183, 183);
+}
+
+tbody {
+    text-align: center;
 }

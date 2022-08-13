@@ -10,6 +10,15 @@ export class CentralizedService {
 
   constructor(private _httpService : HttpClient) { }
 
+  /**
+   * 
+   * Servicio que controla las peticiones de la app.
+   * 
+   * @param endpoint direccion del endpoint
+   * @param method peticion a realizar
+   * @param body json con los datos a enviar
+   * @returns Observable<any>
+   */
 
   ExecutePetition (endpoint : string, method : string, body : any) {
     const url = `${this.baseUrl}/${endpoint}`
@@ -24,7 +33,6 @@ export class CentralizedService {
       case 'delete':
         return this._httpService.delete(url)
       default:
-        console.log(url)
         return this._httpService.get(url)
     }
   }

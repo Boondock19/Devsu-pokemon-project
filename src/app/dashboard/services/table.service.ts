@@ -10,6 +10,10 @@ export class TableService {
 
   constructor(private _centralizedService: CentralizedService) { }
 
+  /**
+   * Funcion que obtiene todos los pokemones
+   * @returns Observable<any>
+   */
   getAllPokemons() {
     return this._centralizedService.ExecutePetition( "?idAuthor=1", 'get', null)
   }
