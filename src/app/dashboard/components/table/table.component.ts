@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { TableService } from '../../services/table.service';
 
 @Component({
   selector: 'app-table',
@@ -18,9 +19,21 @@ export class TableComponent implements OnInit {
 
   faMagnifyingGlass = faMagnifyingGlass;
 
-  constructor() { }
+  pokemons: any[] = []
+
+  constructor( private _tableService : TableService) { }
 
   ngOnInit(){
+    this.getAllPokemons()
+    console.log(this.pokemons)
   }
 
+
+  getAllPokemons() {
+    this._tableService.getAllPokemons()
+    .subscribe((data:any) => {
+      this.pokemons = data
+      console.log(this.pokemons)
+    })
+  }
 }

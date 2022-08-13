@@ -20,9 +20,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr *ngFor="let pokemon of pokemons">
+                    <div class="div-td" *ngFor="let col of columns">
+                        <td *ngIf="col.field != 'image'">{{pokemon[col.field]}}</td>
+                        <td *ngIf="col.field == 'image'">
+                            <img class="pokemon-img" src="{{pokemon[col.field]}}" >
+                        </td>
+                    </div>
+                    
                     <td>
-    
+                        buttons
                     </td>
                 </tr>
             </tbody>
