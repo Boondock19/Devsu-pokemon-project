@@ -54,4 +54,8 @@ export class TableService {
   deletePokemon(id: number) {
     return this._centralizedService.ExecutePetition(`${id}`, 'delete', null);
   }
+
+  getPokemonById(id: number) {
+    return this._centralizedService.ExecutePetition(`${id}`, 'get', null);
+  }
 }

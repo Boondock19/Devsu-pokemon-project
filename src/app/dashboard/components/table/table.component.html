@@ -5,7 +5,7 @@
   <div class="header">
     <div class="search-bar-div">
       <fa-icon class="search-icon" [icon]="faMagnifyingGlass"></fa-icon>
-      <input class="search-input" type="text" placeholder="Buscar" [(ngModel)]="searchBar" (keyup.enter)="getPokemonById()"/>
+      <input class="search-input" type="text" placeholder="Buscar"  (keyup.enter)="getPokemonById($event)"/>
     </div>
     <div class="new-button-div">
       <button class="new-button" (click)="openNewModal()">

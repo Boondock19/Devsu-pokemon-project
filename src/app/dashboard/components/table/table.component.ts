@@ -40,7 +40,8 @@ export class TableComponent implements OnInit {
   updateModal = false;
   newModal = false;
 
-  searchBar = "Buscar"
+  showErrorSearchBar = false
+
 
   updateForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -152,7 +153,19 @@ export class TableComponent implements OnInit {
     });
   }
 
-  getPokemonById() {
-    console.log("Id recuperado del searchbar",this.searchBar)
+  getPokemonById(e:any) {
+    console.log("Id recuperado del searchbar",e.target.value);
+    const id = e.target.value;
+    
+    this._tableService.getPokemonById(id).subscribe((data: any) => {
+      console.log("Pokemon encontrado",data);
+      if (data) {
+        this.pokemons = [data];
+        this.showErrorSearchBar = false
+      } else {
+        this.showErrorSearchBar = true
+      }
+      
+    })
   }
 }
