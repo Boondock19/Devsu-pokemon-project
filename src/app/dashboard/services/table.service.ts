@@ -5,5 +5,11 @@ import { Injectable } from '@angular/core';
 })
 export class TableService {
 
+  baseUrl = "https://bp-pokemons.herokuapp.com"
+
   constructor() { }
+
+  getAllPokemons() {
+    
+  }
 }

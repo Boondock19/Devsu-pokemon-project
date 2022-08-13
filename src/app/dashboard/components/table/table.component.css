@@ -3,7 +3,7 @@
 }
 
 .title {
-    margin-left: 1.5rem;
+    margin-left: 4em;
 }
 
 .header {
@@ -25,12 +25,20 @@
 }
 
 .search-input {
-    border: 1px solid rgb(135, 138, 138);
+    border: 2px solid rgb(183, 183, 183);
     padding: 0.35em 1.5em;
 }
 
 .new-button-div {
     margin-right: 6em;
+}
+
+.new-button {
+    padding: 0.35em 1.5em;
+    border-radius: 6%;
+    background-color: rgb(112, 46, 218);
+    color: white;
+    border: solid rgb(112, 46, 218)
 }
 
 .table-responsive {
@@ -48,5 +56,5 @@ table {
 }
 
 table ,th ,td {
-    border: 1px solid rgb(135, 138, 138);
+    border: 2px solid rgb(183, 183, 183);
 }
