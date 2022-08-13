@@ -50,7 +50,7 @@
                 <div class="form-div">
                     <div >
                         <span for="name">Nombre: </span>
-                        <input type="text" name="name" id="name">
+                        <input class="input-form" type="text" name="name" id="name">
                     </div>
     
         
@@ -61,8 +61,8 @@
                     </div>
 
                     <div>
-                        <span for="image">Imagen: </span>
-                        <input type="text" name="image" id="image">
+                        <span for="image">Imagen:</span>
+                        <input type="text" class="input-form" style="margin-left: 0.6em;" name="image" id="image">
                     </div>
     
                     <div class="range-div">
@@ -72,8 +72,49 @@
                     </div>
                 </div>
                 <div class="form-buttons">
-                    <button>Guardar</button>
-                    <button>Cancelar</button>
+                    <button class="new-button" style="margin-right: 1em;"><fa-icon class="update-icon icon" [icon]="faFloppyDisk"></fa-icon>Guardar</button>
+                    <button class="new-button"><fa-icon class="update-icon icon" [icon]="faxMark"></fa-icon>Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="new-pokemon" *ngIf="newModal">
+    <div class="card">
+        <div>
+            <h4>Nuevo Pokemon</h4>
+        </div>
+
+        <div class="form-container">
+            <form action="">
+                <div class="form-div">
+                    <div >
+                        <span for="name">Nombre: </span>
+                        <input class="input-form" type="text" name="name" id="name">
+                    </div>
+    
+        
+                    <div class="range-div">
+                        <span for="attack">Ataque: 0 </span>
+                        <input type="range" name="attack" class="range-input" id="attack">
+                        <span> 100</span>
+                    </div>
+
+                    <div>
+                        <span for="image">Imagen:</span>
+                        <input type="text" class="input-form" style="margin-left: 0.6em;" name="image" id="image">
+                    </div>
+    
+                    <div class="range-div">
+                        <span for="defense">Defensa: 0</span>
+                        <input type="range" name="defense" class="range-input" id="defense">
+                        <span for="defense"> 100</span>
+                    </div>
+                </div>
+                <div class="form-buttons">
+                    <button class="new-button" style="margin-right: 1em;"><fa-icon class="update-icon icon" [icon]="faFloppyDisk"></fa-icon>Guardar</button>
+                    <button class="new-button"><fa-icon class="update-icon icon" [icon]="faxMark"></fa-icon>Cancelar</button>
                 </div>
             </form>
         </div>

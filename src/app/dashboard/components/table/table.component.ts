@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faMagnifyingGlass, faPenToSquare, faPlus, faTrashCanArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faFloppyDisk, faMagnifyingGlass, faPenToSquare, faPlus, faTrashCanArrowUp, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { TableService } from '../../services/table.service';
 
 @Component({
@@ -17,12 +17,20 @@ export class TableComponent implements OnInit {
     {field: 'defense', caption: 'Defensa'},  
   ]
 
+  // simbolos de fontAwesome
   faMagnifyingGlass = faMagnifyingGlass;
   faPenToSquare = faPenToSquare;
   faTrashCanArrowUp = faTrashCanArrowUp;
   faPlus = faPlus;
+  faFloppyDisk = faFloppyDisk;
+  faxMark = faXmark;
 
+  // Todos los pokemons de la DB
   pokemons: any[] = []
+
+
+  updateModal = false;
+  newModal = false;
 
   constructor( private _tableService : TableService) { }
 
