@@ -18,7 +18,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     DashboardModule,
     FontAwesomeModule,
     HttpClientModule,
-    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

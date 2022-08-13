@@ -40,6 +40,8 @@ export class TableComponent implements OnInit {
   updateModal = false;
   newModal = false;
 
+  searchBar = "Buscar"
+
   updateForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     image: new FormControl('', Validators.required),
@@ -148,5 +150,9 @@ export class TableComponent implements OnInit {
     this._tableService.deletePokemon(id).subscribe((data: any) => {
       this.pokemons.splice(index, 1);
     });
+  }
+
+  getPokemonById() {
+    console.log("Id recuperado del searchbar",this.searchBar)
   }
 }
