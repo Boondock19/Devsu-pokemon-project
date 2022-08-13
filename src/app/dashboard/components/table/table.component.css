@@ -13,12 +13,20 @@
 }
 
 .search-bar-div {
-    margin-left: 6em;
+    display: flex;
+    align-items: center;
+    margin-left: 4em;
+    
+}
+
+.search-icon {
+    position: absolute;
+    margin-left: 0.25em;
 }
 
 .search-input {
     border: 1px solid rgb(135, 138, 138);
-    padding: 0.35em;
+    padding: 0.35em 1.5em;
 }
 
 .new-button-div {

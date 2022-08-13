@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-table',
@@ -14,6 +15,8 @@ export class TableComponent implements OnInit {
     {field: 'attack', caption: 'Ataque'}, 
     {field: 'defense', caption: 'Defensa'},  
   ]
+
+  faMagnifyingGlass = faMagnifyingGlass;
 
   constructor() { }
 
