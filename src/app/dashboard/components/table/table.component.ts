@@ -52,6 +52,9 @@ export class TableComponent implements OnInit {
     hp: new FormControl('',Validators.required),
   })
 
+  updateId = 0
+  updateIndex = 0
+
   constructor( private _tableService : TableService) { }
 
   ngOnInit(){
@@ -72,10 +75,19 @@ export class TableComponent implements OnInit {
   /**
    * Funcion para abrir el modal de update de un pokemon
    */
-  openUpdateModal(pokemon:any) {
+  openUpdateModal(pokemon:any,index:number) {
     this.updateModal = !this.updateModal
-    console.log(pokemon)
-    console.log(this.updateForm)
+    this.updateForm.setValue({
+      name: pokemon.name,
+      image: pokemon.image,
+      attack: pokemon.attack,
+      defense: pokemon.defense,
+      type: pokemon.type,
+      hp: pokemon.hp,
+    })
+
+    this.updateId = pokemon.id
+    this.updateIndex = index
   }
 
   /**
@@ -83,8 +95,14 @@ export class TableComponent implements OnInit {
    */
 
   updatePokemon() {
-    console.log("Actualizamos pokemon")
-    console.log('alo?S')
+
+    this._tableService.updatePokemon(this.updateId,this.updateForm)
+    .subscribe((data:any) => {
+      this.pokemons[this.updateIndex] = data
+      this.updateForm.reset()
+      this.updateModal = false
+
+    })
   }
 
   closeUpdateModal() {
