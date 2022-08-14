@@ -1,5 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { Observable, of } from 'rxjs';
 import { TableService } from '../../services/table.service';
 
@@ -75,6 +76,20 @@ describe('TableComponent', () => {
   });
 
   it('should get all pokemons', () => {
+    const table = getElementByTestId('pokemons-table-rows',fixture)
+    /**
+     * Verificamos que si este renderizando la tabla contando la cantidad de nodos hijo.
+     * Si es 2 Quiere decir que renderizo la tabla con nuestro objeto dummy en caso contrario fallo.
+     * Cuenta como 2 porque contabiliza la directiva de ng-for-of
+     */
+    expect(table.childNodes.length).toBe(2);
     expect(fakeTableService.getAllPokemons).toHaveBeenCalled();
   })
+
 });
+
+
+const getElementByTestId = (testId:string, fixture: ComponentFixture<any>) => {
+  const element = fixture.debugElement.query(By.css(`[data-testid="${testId}"]`));
+  return element;
+}

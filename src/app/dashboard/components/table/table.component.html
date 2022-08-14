@@ -25,15 +25,15 @@
     </select>
   </div>
   <div class="table-responsive">
-    <table class="table">
+    <table class="table" >
       <thead>
         <tr>
           <th *ngFor="let col of columns">{{ col.caption }}</th>
           <th>Acciones</th>
         </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let pokemon of pokemons; let i = index">
+      <tbody data-testid="pokemons-table-rows">
+        <tr *ngFor="let pokemon of pokemons; let i = index" >
           <div class="div-td" *ngFor="let col of columns">
             <td *ngIf="col.field != 'image'">{{ pokemon[col.field] }}</td>
             <td *ngIf="col.field == 'image'">
