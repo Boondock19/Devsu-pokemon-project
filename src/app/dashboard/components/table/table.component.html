@@ -5,8 +5,8 @@
   <div class="header">
     <div class="search-bar-div">
       <fa-icon class="search-icon" [icon]="faMagnifyingGlass"></fa-icon>
-      <input class="search-input" #searchBar type="text" placeholder="Buscar"  (keyup.enter)="getPokemonById($event)"/>
-      <button class="new-button" style="margin-left: 1em;" (click)="resetSearch()"><fa-icon class="update-icon icon" [icon]="faEraser"></fa-icon> Reset</button>
+      <input class="search-input" #searchBar type="text" placeholder="Buscar"  (keyup.enter)="getPokemonById($event)" data-testid="search-bar"/>
+      <button class="new-button" data-testid="reset-button" style="margin-left: 1em;" (click)="resetSearch()"><fa-icon class="update-icon icon" [icon]="faEraser"></fa-icon> Reset</button>
     </div>
     <div class="new-button-div">
       <button class="new-button" (click)="openNewModal()">
