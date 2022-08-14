@@ -40,8 +40,11 @@ export class TableComponent implements OnInit {
   updateModal = false;
   newModal = false;
 
-  showErrorSearchBar = false
+  showErrorSearchBar = false;
 
+  numbersArray = Array(10)
+    .fill(0)
+    .map((x, i) => i + 1);
 
   updateForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -130,7 +133,6 @@ export class TableComponent implements OnInit {
     this.newModal = false;
   }
 
-
   /**
    * Funcion para hacer la peticion de hacer post de un pokemon y manejar
    * la actualizacion en tiempo real.
@@ -153,19 +155,34 @@ export class TableComponent implements OnInit {
     });
   }
 
-  getPokemonById(e:any) {
-    console.log("Id recuperado del searchbar",e.target.value);
+  /**
+   * Funcion para obtener el id del pokemon seleccionado en la busqueda
+   * y realizar la peticion a la DB
+   * @param e evento del input de busqueda
+   */
+  getPokemonById(e: any) {
+    console.log('Id recuperado del searchbar', e.target.value);
     const id = e.target.value;
-    
+
     this._tableService.getPokemonById(id).subscribe((data: any) => {
-      console.log("Pokemon encontrado",data);
+      console.log('Pokemon encontrado', data);
       if (data) {
         this.pokemons = [data];
-        this.showErrorSearchBar = false
+        this.showErrorSearchBar = false;
       } else {
-        this.showErrorSearchBar = true
+        this.showErrorSearchBar = true;
       }
-      
-    })
+    });
+  }
+
+  /**
+   * Funcion para obtener n pokemons de la DB
+   * @param e evento del select
+   */
+  changeSelect(e: any) {
+    const n = e.target.value;
+    this._tableService.getNPokemons(n).subscribe((data: any) => {
+      this.pokemons = data;
+    });
   }
 }

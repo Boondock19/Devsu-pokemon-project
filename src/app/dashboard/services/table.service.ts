@@ -55,7 +55,25 @@ export class TableService {
     return this._centralizedService.ExecutePetition(`${id}`, 'delete', null);
   }
 
+  /**
+   * Funcion para obtener un pokemon por id de la DB.
+   * @param id id del pokemon a obtener
+   * @returns observable<any>
+   */
   getPokemonById(id: number) {
     return this._centralizedService.ExecutePetition(`${id}`, 'get', null);
+  }
+
+  /**
+   * Funcion para obtener n numero de pokemones de la DB
+   * @param n numero de pokemones a obtener
+   * @returns observable<any>
+   */
+  getNPokemons(n: number) {
+    return this._centralizedService.ExecutePetition(
+      `${n}?idAuthor=1`,
+      'get',
+      null
+    );
   }
 }

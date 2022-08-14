@@ -6,12 +6,18 @@
     <div class="search-bar-div">
       <fa-icon class="search-icon" [icon]="faMagnifyingGlass"></fa-icon>
       <input class="search-input" type="text" placeholder="Buscar"  (keyup.enter)="getPokemonById($event)"/>
+      <button>Reset</button>
     </div>
     <div class="new-button-div">
       <button class="new-button" (click)="openNewModal()">
         <fa-icon class="update-icon icon" [icon]="faPlus"></fa-icon> NUEVO
       </button>
     </div>
+  </div>
+  <div class="select-div">
+    <select name="" id="" (change)="changeSelect($event)">
+      <option *ngFor="let n of numbersArray" value="{{n}}" >{{n}}</option>
+    </select>
   </div>
   <div class="table-responsive">
     <table class="table">

@@ -148,6 +148,9 @@
     border: 2px solid rgb(183, 183, 183);
 }
 
+.select-div {
+    margin: 1em 0em 0em 4em;
+}
 
 table {
     border-collapse: collapse;
