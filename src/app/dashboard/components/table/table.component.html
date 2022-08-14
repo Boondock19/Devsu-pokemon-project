@@ -5,8 +5,8 @@
   <div class="header">
     <div class="search-bar-div">
       <fa-icon class="search-icon" [icon]="faMagnifyingGlass"></fa-icon>
-      <input class="search-input" type="text" placeholder="Buscar"  (keyup.enter)="getPokemonById($event)"/>
-      <button>Reset</button>
+      <input class="search-input" #searchBar type="text" placeholder="Buscar"  (keyup.enter)="getPokemonById($event)"/>
+      <button class="new-button" style="margin-left: 1em;" (click)="resetSearch()"><fa-icon class="update-icon icon" [icon]="faEraser"></fa-icon> Reset</button>
     </div>
     <div class="new-button-div">
       <button class="new-button" (click)="openNewModal()">
@@ -14,8 +14,13 @@
       </button>
     </div>
   </div>
+  <div class="select-div" *ngIf="showErrorSearchBar">
+    <span class="error-span">No se encontro el pokemon con el id ingresado</span>
+  </div>
   <div class="select-div">
-    <select name="" id="" (change)="changeSelect($event)">
+    <span>Mostrar n número de pokemons: </span>
+    <select  (change)="changeSelect($event)">
+      <option value="OPCIONES" disabled >OPCIONES</option>
       <option *ngFor="let n of numbersArray" value="{{n}}" >{{n}}</option>
     </select>
   </div>

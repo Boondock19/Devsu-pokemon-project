@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
+  faEraser,
   faFloppyDisk,
   faMagnifyingGlass,
   faPenToSquare,
@@ -33,9 +34,11 @@ export class TableComponent implements OnInit {
   faPlus = faPlus;
   faFloppyDisk = faFloppyDisk;
   faxMark = faXmark;
+  faEraser = faEraser;
 
   // Todos los pokemons de la DB
   pokemons: any[] = [];
+  copyPokemon: any[] = [];
 
   updateModal = false;
   newModal = false;
@@ -67,6 +70,8 @@ export class TableComponent implements OnInit {
   updateId = 0;
   updateIndex = 0;
 
+  @ViewChild('searchBar') searchBarInput!: ElementRef;
+
   constructor(private _tableService: TableService) {}
 
   ngOnInit() {
@@ -79,6 +84,7 @@ export class TableComponent implements OnInit {
   getAllPokemons() {
     this._tableService.getAllPokemons().subscribe((data: any) => {
       this.pokemons = data;
+      this.copyPokemon = data;
     });
   }
 
@@ -161,11 +167,9 @@ export class TableComponent implements OnInit {
    * @param e evento del input de busqueda
    */
   getPokemonById(e: any) {
-    console.log('Id recuperado del searchbar', e.target.value);
     const id = e.target.value;
 
     this._tableService.getPokemonById(id).subscribe((data: any) => {
-      console.log('Pokemon encontrado', data);
       if (data) {
         this.pokemons = [data];
         this.showErrorSearchBar = false;
@@ -184,5 +188,14 @@ export class TableComponent implements OnInit {
     this._tableService.getNPokemons(n).subscribe((data: any) => {
       this.pokemons = data;
     });
+  }
+
+  /**
+   * Funcion para realizar un reset de las condiciones
+   * iniciales del componente
+   */
+  resetSearch() {
+    this.searchBarInput.nativeElement.value = '';
+    this.pokemons = this.copyPokemon;
   }
 }

@@ -152,6 +152,14 @@
     margin: 1em 0em 0em 4em;
 }
 
+.error-span {
+    padding: 0.25rem;
+    background-color: #f3e1e1;
+    color: red;
+    border: 1px solid red;
+    border-radius: 6%;
+}
+
 table {
     border-collapse: collapse;
 }
