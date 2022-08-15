@@ -121,7 +121,9 @@ describe('TableComponent', () => {
      * Si es 4 Quiere decir que renderizo la tabla con nuestro objeto dummy en caso contrario fallo.
      * Cuenta como 4 porque contabiliza la directiva de ng-for-of
      */
-    expect(table.childNodes.length).toBe(4);
+
+    const amountOfpokemons = component.pokemons.length;
+    expect(table.childNodes.length).toBe(amountOfpokemons+1);
     expect(fakeTableService.getAllPokemons).toHaveBeenCalled();
   });
 
@@ -181,6 +183,76 @@ describe('TableComponent', () => {
     expect(modal).toBeDefined();
   });
 
+  it('Should open new modal and post a new pokemon, close newModal',  () => {
+    spyOn(component, 'openNewModal').and.callThrough();
+    spyOn(component, 'postPokemon').and.callThrough();
+
+    const newButton = getElementByTestId('new-button', fixture);
+
+    let modal = getElementByTestId('new-pokemon-modal', fixture);
+
+    newButton.triggerEventHandler('click', null);
+    fixture.detectChanges();
+
+    // Obtener los valores de los inputs del modal.
+    let inputName = getElementByTestId(
+      'name-input-post',
+      fixture
+    ).nativeElement;
+    let inputAttack = getElementByTestId(
+      'attack-input-post',
+      fixture
+    ).nativeElement;
+    let inputDefense = getElementByTestId(
+      'defense-input-post',
+      fixture
+    ).nativeElement;
+    let inputImg = getElementByTestId(
+      'image-input-post',
+      fixture
+    ).nativeElement;
+    let inputHp = getElementByTestId('hp-input-post', fixture).nativeElement;
+    let inputType = getElementByTestId(
+      'type-input-post',
+      fixture
+    ).nativeElement;
+
+    // Cambiar los valores de los inputs del modal.
+
+    inputName.value = 'Posted Name';
+    inputAttack.value = 'Posted Attack';
+    inputDefense.value = 'Posted Defense';
+    inputImg.value =
+      'https://assets.pokemon.com/assets/cms2/img/pokedex/full/055.png';
+    inputHp.value = 'Posted Hp';
+    inputType.value = 'Posted Type';
+
+    const pokemonPostedData = {
+      id: 3000,
+      name: 'Posted Name',
+      attack: 'Posted Attack',
+      defense: 'Posted Defense',
+      hp: 'Posted Hp',
+      type: 'Posted Type',
+      image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/055.png',
+      id_author: 1,
+    };
+
+    fixture.detectChanges();
+    
+
+    const postNewButton = getElementByTestId('submit-post-button', fixture);
+    postNewButton.triggerEventHandler('click', null);
+    
+    fixture.detectChanges();
+
+    expect(component.postPokemon).toHaveBeenCalled();
+    expect(component.pokemons[3]).toEqual(pokemonPostedData);
+    expect(modal).toBeNull();
+
+    
+  });
+
   it('Should open update modal form for update pokemon on click with pokemon values', () => {
     spyOn(component, 'openUpdateModal').and.callThrough();
 
@@ -228,7 +300,7 @@ describe('TableComponent', () => {
     expect(iguales).toBeTruthy();
   });
 
-  it('update pokemon values and table, close updateModal', fakeAsync(async () => {
+  it('update pokemon values and table, close updateModal', () => {
     spyOn(component, 'openUpdateModal').and.callThrough();
     spyOn(component, 'updatePokemon').and.callThrough();
 
@@ -274,8 +346,6 @@ describe('TableComponent', () => {
     inputHp.value = 'Updated Hp';
     inputType.value = 'Updated Type';
 
-    console.log('Input Name', inputName.value);
-
     const pokemonUpdatedData = {
       id: component.updateId,
       name: 'Updated Name',
@@ -289,17 +359,17 @@ describe('TableComponent', () => {
 
     fixture.detectChanges();
 
-    tick(1000);
+    
     const updateForm = getElementByTestId('submit-update-button', fixture);
 
     updateForm.triggerEventHandler('click', null);
-    tick(1000);
+    
     fixture.detectChanges();
     const modal = getElementByTestId('update-modal', fixture);
     expect(component.updatePokemon).toHaveBeenCalled();
     expect(component.pokemons[id]).toEqual(pokemonUpdatedData);
     expect(modal).toBeNull();
-  }));
+  });
 });
 
 const getElementByTestId = (testId: string, fixture: ComponentFixture<any>) => {

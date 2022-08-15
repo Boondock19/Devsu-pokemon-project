@@ -200,6 +200,7 @@
             <input
               class="input-form"
               type="text"
+              data-testid="name-input-post"
               placeholder="nombre"
               formControlName="name"
               id="name"
@@ -215,6 +216,7 @@
           <div class="range-div">
             <span for="attack">Ataque: 0 </span>
             <input
+              data-testid="attack-input-post"
               type="range"
               formControlName="attack"
               class="range-input"
@@ -226,6 +228,7 @@
           <div>
             <span for="image">Imagen:</span>
             <input
+              data-testid="image-input-post"
               class="input-form"
               pattern="https://.*"
               type="url"
@@ -246,6 +249,7 @@
           <div class="range-div">
             <span for="defense">Defensa: 0</span>
             <input
+              data-testid="defense-input-post"
               type="range"
               formControlName="defense"
               class="range-input"
@@ -257,6 +261,7 @@
           <div>
             <span for="type">Tipo: </span>
             <input
+              data-testid="type-input-post"
               class="input-form"
               type="text"
               placeholder="tipo"
@@ -275,6 +280,7 @@
           <div class="range-div">
             <span for="hp">HP: 0</span>
             <input
+              data-testid="hp-input-post"
               type="range"
               formControlName="hp"
               class="range-input"
@@ -290,11 +296,12 @@
             type="button"
             [disabled]="!newForm.valid"
             (click)="postPokemon()"
+            data-testid="submit-post-button"
           >
             <fa-icon class="update-icon icon" [icon]="faFloppyDisk"></fa-icon
             >Guardar
           </button>
-          <button class="new-button" type="button" (click)="closeNewModal()">
+          <button class="new-button" type="button" (click)="closeNewModal()" data-testid="cancel-post-button">
             <fa-icon class="update-icon icon" [icon]="faxMark"></fa-icon
             >Cancelar
           </button>
