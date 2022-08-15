@@ -1,5 +1,10 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Observable, of } from 'rxjs';
@@ -56,6 +61,28 @@ describe('TableComponent', () => {
     id_author: 1,
   };
 
+  const updatedPokemon = {
+    id: 2746,
+    name: 'Updated Name',
+    attack: 'Updated Attack',
+    defense: 'Updated Defense',
+    hp: 'Updated Hp',
+    type: 'Updated Type',
+    image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/055.png',
+    id_author: 1,
+  };
+
+  const postedPokemon = {
+    id: 3000,
+    name: 'Posted Name',
+    attack: 'Posted Attack',
+    defense: 'Posted Defense',
+    hp: 'Posted Hp',
+    type: 'Posted Type',
+    image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/055.png',
+    id_author: 1,
+  };
+
   const deleteRes = {
     success: true,
     type: 'pokemon_removed',
@@ -67,14 +94,14 @@ describe('TableComponent', () => {
       getAllPokemons: of(Arrpokemons),
       getPokemonById: of(pokemon),
       getNPokemons: of(Arrpokemons),
-      updatePokemon: of(pokemon),
-      postPokemon: of(pokemon),
+      updatePokemon: of(updatedPokemon),
+      postPokemon: of(postedPokemon),
       deletePokemon: of(deleteRes),
     });
 
     await TestBed.configureTestingModule({
       declarations: [TableComponent],
-      imports: [HttpClientTestingModule,ReactiveFormsModule],
+      imports: [HttpClientTestingModule, ReactiveFormsModule],
       providers: [{ provide: TableService, useValue: fakeTableService }],
     }).compileComponents();
 
@@ -159,37 +186,120 @@ describe('TableComponent', () => {
 
     const id = 2;
     const pokemon = Arrpokemons[id];
-    
+
     // Verificaremos con el tercer objeto del array de pruebas.
     const newButton = getElementByTestId(`update-button-${id}`, fixture);
-    
 
     newButton.triggerEventHandler('click', null);
     fixture.detectChanges();
     const modal = getElementByTestId('update-modal', fixture);
-    
 
     // Obtener los valores de los inputs del modal.
-    const inputName = getElementByTestId('name-input-update', fixture).nativeElement.value;
-    const inputAttack = getElementByTestId('attack-input-update', fixture).nativeElement.value;
-    const inputDefense = getElementByTestId('defense-input-update', fixture).nativeElement.value;
-    const inputImg = getElementByTestId('image-input-update', fixture).nativeElement.value;
-    const inputHp = getElementByTestId('hp-input-update', fixture).nativeElement.value;
-    const inputType = getElementByTestId('type-input-update', fixture).nativeElement.value;
+    const inputName = getElementByTestId('name-input-update', fixture)
+      .nativeElement.value;
+    const inputAttack = getElementByTestId('attack-input-update', fixture)
+      .nativeElement.value;
+    const inputDefense = getElementByTestId('defense-input-update', fixture)
+      .nativeElement.value;
+    const inputImg = getElementByTestId('image-input-update', fixture)
+      .nativeElement.value;
+    const inputHp = getElementByTestId('hp-input-update', fixture).nativeElement
+      .value;
+    const inputType = getElementByTestId('type-input-update', fixture)
+      .nativeElement.value;
 
     // Verificar que los valores sean iguales a los del objeto pokemon.
-    const { name, attack, defense, hp, type,image } = pokemon;
-
+    const { name, attack, defense, hp, type, image } = pokemon;
 
     let iguales = false;
 
-    if(inputName == name || inputAttack == attack || inputDefense == defense ||
-      inputImg == image || inputHp == hp || inputType == type) iguales = true;
+    if (
+      inputName == name ||
+      inputAttack == attack ||
+      inputDefense == defense ||
+      inputImg == image ||
+      inputHp == hp ||
+      inputType == type
+    )
+      iguales = true;
 
     expect(component.openUpdateModal).toHaveBeenCalled();
     expect(modal).toBeDefined();
     expect(iguales).toBeTruthy();
   });
+
+  it('update pokemon values and table, close updateModal', fakeAsync(async () => {
+    spyOn(component, 'openUpdateModal').and.callThrough();
+    spyOn(component, 'updatePokemon').and.callThrough();
+
+    const id = 2;
+
+    // Verificaremos con el tercer objeto del array de pruebas.
+    const newButton = getElementByTestId(`update-button-${id}`, fixture);
+
+    newButton.triggerEventHandler('click', null);
+
+    fixture.detectChanges();
+
+    // Obtener los valores de los inputs del modal.
+    let inputName = getElementByTestId(
+      'name-input-update',
+      fixture
+    ).nativeElement;
+    let inputAttack = getElementByTestId(
+      'attack-input-update',
+      fixture
+    ).nativeElement;
+    let inputDefense = getElementByTestId(
+      'defense-input-update',
+      fixture
+    ).nativeElement;
+    let inputImg = getElementByTestId(
+      'image-input-update',
+      fixture
+    ).nativeElement;
+    let inputHp = getElementByTestId('hp-input-update', fixture).nativeElement;
+    let inputType = getElementByTestId(
+      'type-input-update',
+      fixture
+    ).nativeElement;
+
+    // Cambiar los valores de los inputs del modal.
+
+    inputName.value = 'Updated Name';
+    inputAttack.value = 'Updated Attack';
+    inputDefense.value = 'Updated Defense';
+    inputImg.value =
+      'https://assets.pokemon.com/assets/cms2/img/pokedex/full/055.png';
+    inputHp.value = 'Updated Hp';
+    inputType.value = 'Updated Type';
+
+    console.log('Input Name', inputName.value);
+
+    const pokemonUpdatedData = {
+      id: component.updateId,
+      name: 'Updated Name',
+      attack: 'Updated Attack',
+      defense: 'Updated Defense',
+      hp: 'Updated Hp',
+      type: 'Updated Type',
+      image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/055.png',
+      id_author: 1,
+    };
+
+    fixture.detectChanges();
+
+    tick(1000);
+    const updateForm = getElementByTestId('submit-update-button', fixture);
+
+    updateForm.triggerEventHandler('click', null);
+    tick(1000);
+    fixture.detectChanges();
+    const modal = getElementByTestId('update-modal', fixture);
+    expect(component.updatePokemon).toHaveBeenCalled();
+    expect(component.pokemons[id]).toEqual(pokemonUpdatedData);
+    expect(modal).toBeNull();
+  }));
 });
 
 const getElementByTestId = (testId: string, fixture: ComponentFixture<any>) => {

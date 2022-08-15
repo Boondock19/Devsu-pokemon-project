@@ -171,11 +171,12 @@
             type="button"
             [disabled]="!updateForm.valid"
             (click)="updatePokemon()"
+            data-testid="submit-update-button"
           >
             <fa-icon class="update-icon icon" [icon]="faFloppyDisk"></fa-icon
             >Guardar
           </button>
-          <button class="new-button" type="button" (click)="closeUpdateModal()" >
+          <button class="new-button" type="button" (click)="closeUpdateModal()" data-testid="cancel-update-button" >
             <fa-icon class="update-icon icon" [icon]="faxMark"></fa-icon
             >Cancelar
           </button>

@@ -115,6 +115,7 @@ export class TableComponent implements OnInit {
     this._tableService
       .updatePokemon(this.updateId, this.updateForm)
       .subscribe((data: any) => {
+        console.log('DATAAAAAAAAA', data)
         this.pokemons[this.updateIndex] = data;
         this.updateForm.reset();
         this.updateModal = false;
