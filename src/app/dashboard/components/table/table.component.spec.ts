@@ -121,7 +121,7 @@ describe('TableComponent', () => {
     expect(table.childNodes.length).toBe(2);
   });
 
-  it('should clear search bar on reset', () => {
+  it('should clear search bar and reset pokemon array on reset', () => {
     spyOn(component, 'resetSearch').and.callThrough();
     const searchBar = getElementByTestId('search-bar', fixture);
     const resetButton = getElementByTestId('reset-button', fixture);
@@ -135,8 +135,22 @@ describe('TableComponent', () => {
     fixture.detectChanges();
 
     expect(component.resetSearch).toHaveBeenCalled();
-
     expect(searchBar.nativeElement.value).toBe('');
+    expect(component.pokemons).toEqual(Arrpokemons);
+  });
+
+  it('Should open new modal form for new pokemon on click', () => {
+    spyOn(component, 'openNewModal').and.callThrough();
+    const newButton = getElementByTestId('new-button', fixture);
+
+    let modal = getElementByTestId('new-pokemon-modal', fixture);
+
+    newButton.triggerEventHandler('click', null);
+    fixture.detectChanges();
+    modal = getElementByTestId('new-pokemon-modal', fixture);
+
+    expect(component.openNewModal).toHaveBeenCalled();
+    expect(modal).toBeDefined();
   });
 });
 

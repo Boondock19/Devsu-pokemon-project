@@ -9,7 +9,7 @@
       <button class="new-button" data-testid="reset-button" style="margin-left: 1em;" (click)="resetSearch()"><fa-icon class="update-icon icon" [icon]="faEraser"></fa-icon> Reset</button>
     </div>
     <div class="new-button-div">
-      <button class="new-button" (click)="openNewModal()">
+      <button class="new-button" (click)="openNewModal()" data-testid="new-button">
         <fa-icon class="update-icon icon" [icon]="faPlus"></fa-icon> NUEVO
       </button>
     </div>
@@ -167,7 +167,7 @@
             <fa-icon class="update-icon icon" [icon]="faFloppyDisk"></fa-icon
             >Guardar
           </button>
-          <button class="new-button" type="button" (click)="closeUpdateModal()">
+          <button class="new-button" type="button" (click)="closeUpdateModal()" >
             <fa-icon class="update-icon icon" [icon]="faxMark"></fa-icon
             >Cancelar
           </button>
@@ -177,8 +177,8 @@
   </div>
 </div>
 
-<div class="new-pokemon" *ngIf="newModal">
-  <div class="card">
+<div class="new-pokemon" *ngIf="newModal" data-testid="new-pokemon-modal">
+  <div class="card" >
     <div>
       <h4>Nuevo Pokemon</h4>
     </div>
