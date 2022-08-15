@@ -19,7 +19,7 @@
   </div>
   <div class="select-div">
     <span>Mostrar n número de pokemons: </span>
-    <select  (change)="changeSelect($event)">
+    <select  (change)="changeSelect($event)" data-testid="select-input">
       <option value="OPCIONES" disabled >OPCIONES</option>
       <option *ngFor="let n of numbersArray" value="{{n}}" >{{n}}</option>
     </select>

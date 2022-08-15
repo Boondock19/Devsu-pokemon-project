@@ -92,8 +92,17 @@ describe('TableComponent', () => {
   beforeEach(async () => {
     fakeTableService = jasmine.createSpyObj<TableService>('TableService', {
       getAllPokemons: of(Arrpokemons),
-      getPokemonById: of(pokemon),
-      getNPokemons: of(Arrpokemons),
+      getPokemonById: of({
+        id: 2745,
+        name: 'Weedle',
+        image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/013.png',
+        attack: 57,
+        defense: 71,
+        hp: 100,
+        type: 'Unknown',
+        id_author: 1,
+      }),
+      getNPokemons: of(Arrpokemons.slice(0, 2)),
       updatePokemon: of(updatedPokemon),
       postPokemon: of(postedPokemon),
       deletePokemon: of(deleteRes),
@@ -131,7 +140,7 @@ describe('TableComponent', () => {
     spyOn(component, 'getPokemonById').and.callThrough();
     const searchBar = getElementByTestId('search-bar', fixture);
 
-    searchBar.nativeElement.value = '2746';
+    searchBar.nativeElement.value = '2745';
 
     const table = getElementByTestId('pokemons-table-rows', fixture);
 
@@ -388,6 +397,25 @@ describe('TableComponent', () => {
     expect(component.pokemons.length).toEqual(initialLength - 1);
     expect(table.childNodes.length).toEqual(initialTableLength - 1);
   });
+
+  it('Should get n first pokemons', () => {
+    spyOn(component,'changeSelect').and.callThrough();
+
+    const n = 2;
+    
+    const first2Pokemons = component.pokemons.slice(0, n);
+
+    const select = getElementByTestId('select-input',fixture)
+    select.nativeElement.value = n;
+    fixture.detectChanges();
+    select.triggerEventHandler('change',event)
+    fixture.detectChanges();
+
+    
+
+    expect(component.changeSelect).toHaveBeenCalled();
+    expect(component.pokemons.length).toEqual(first2Pokemons.length);
+  })
 });
 
 const getElementByTestId = (testId: string, fixture: ComponentFixture<any>) => {
