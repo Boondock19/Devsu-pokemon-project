@@ -46,11 +46,13 @@
               (click)="openUpdateModal(pokemon, i)"
               class="update-icon icon purple"
               [icon]="faPenToSquare"
+              [attr.data-testid]="'update-button-' + i"
             ></fa-icon>
             <fa-icon
               (click)="deletePokemon(pokemon['id'], i)"
               class="purple icon"
               [icon]="faTrashCanArrowUp"
+              [attr.data-testid]="'delete-button-' + i"
             ></fa-icon>
           </td>
         </tr>
@@ -59,18 +61,19 @@
   </div>
 </div>
 
-<div class="update-pokemon" *ngIf="updateModal">
+<div class="update-pokemon" *ngIf="updateModal" data-testid="update-modal">
   <div class="card">
     <div>
       <h4>Actualizar Pokemon</h4>
     </div>
 
     <div class="form-container">
-      <form [formGroup]="updateForm" (ngSubmit)="updatePokemon()">
+      <form [formGroup]="updateForm" (ngSubmit)="updatePokemon()" data-testid="update-form">
         <div class="form-div">
           <div>
             <span for="name">Nombre: </span>
             <input
+              data-testid="name-input-update"
               class="input-form"
               type="text"
               placeholder="nombre"
@@ -88,6 +91,7 @@
           <div class="range-div">
             <span for="attack">Ataque: 0 </span>
             <input
+              data-testid="attack-input-update"
               type="range"
               formControlName="attack"
               class="range-input"
@@ -99,6 +103,7 @@
           <div>
             <span for="image">Imagen:</span>
             <input
+              data-testid="image-input-update"
               class="input-form"
               pattern="https://.*"
               type="url"
@@ -119,6 +124,7 @@
           <div class="range-div">
             <span for="defense">Defensa: 0</span>
             <input
+              data-testid="defense-input-update"
               type="range"
               formControlName="defense"
               class="range-input"
@@ -130,6 +136,7 @@
           <div>
             <span for="type">Tipo: </span>
             <input
+              data-testid="type-input-update"
               class="input-form"
               type="text"
               placeholder="tipo"
@@ -148,6 +155,7 @@
           <div class="range-div">
             <span for="hp">HP: 0</span>
             <input
+              data-testid="hp-input-update"
               type="range"
               formControlName="hp"
               class="range-input"
@@ -184,7 +192,7 @@
     </div>
 
     <div class="form-container">
-      <form [formGroup]="newForm" (ngSubmit)="postPokemon()">
+      <form [formGroup]="newForm" (ngSubmit)="postPokemon()" data-testid="new-form">
         <div class="form-div">
           <div>
             <span for="name">Nombre: </span>

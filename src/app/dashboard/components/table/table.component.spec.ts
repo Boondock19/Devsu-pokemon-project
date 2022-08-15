@@ -1,5 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Observable, of } from 'rxjs';
 import { TableService } from '../../services/table.service';
@@ -73,7 +74,7 @@ describe('TableComponent', () => {
 
     await TestBed.configureTestingModule({
       declarations: [TableComponent],
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule,ReactiveFormsModule],
       providers: [{ provide: TableService, useValue: fakeTableService }],
     }).compileComponents();
 
@@ -151,6 +152,43 @@ describe('TableComponent', () => {
 
     expect(component.openNewModal).toHaveBeenCalled();
     expect(modal).toBeDefined();
+  });
+
+  it('Should open update modal form for update pokemon on click with pokemon values', () => {
+    spyOn(component, 'openUpdateModal').and.callThrough();
+
+    const id = 2;
+    const pokemon = Arrpokemons[id];
+    
+    // Verificaremos con el tercer objeto del array de pruebas.
+    const newButton = getElementByTestId(`update-button-${id}`, fixture);
+    
+
+    newButton.triggerEventHandler('click', null);
+    fixture.detectChanges();
+    const modal = getElementByTestId('update-modal', fixture);
+    
+
+    // Obtener los valores de los inputs del modal.
+    const inputName = getElementByTestId('name-input-update', fixture).nativeElement.value;
+    const inputAttack = getElementByTestId('attack-input-update', fixture).nativeElement.value;
+    const inputDefense = getElementByTestId('defense-input-update', fixture).nativeElement.value;
+    const inputImg = getElementByTestId('image-input-update', fixture).nativeElement.value;
+    const inputHp = getElementByTestId('hp-input-update', fixture).nativeElement.value;
+    const inputType = getElementByTestId('type-input-update', fixture).nativeElement.value;
+
+    // Verificar que los valores sean iguales a los del objeto pokemon.
+    const { name, attack, defense, hp, type,image } = pokemon;
+
+
+    let iguales = false;
+
+    if(inputName == name || inputAttack == attack || inputDefense == defense ||
+      inputImg == image || inputHp == hp || inputType == type) iguales = true;
+
+    expect(component.openUpdateModal).toHaveBeenCalled();
+    expect(modal).toBeDefined();
+    expect(iguales).toBeTruthy();
   });
 });
 
