@@ -171,3 +171,14 @@ table ,th ,td {
 tbody {
     text-align: center;
 }
+
+
+@media (max-width: 700px) {
+    .form-div {
+        grid-template-columns: 1fr;
+    }
+
+    .new-button {
+        margin-right: 1em;
+    }
+}

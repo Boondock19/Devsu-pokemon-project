@@ -166,7 +166,7 @@
         </div>
         <div class="form-buttons">
           <button
-            class="new-button"
+            class="new-button save-form-button"
             style="margin-right: 1em"
             type="button"
             [disabled]="!updateForm.valid"
@@ -176,7 +176,7 @@
             <fa-icon class="update-icon icon" [icon]="faFloppyDisk"></fa-icon
             >Guardar
           </button>
-          <button class="new-button" type="button" (click)="closeUpdateModal()" data-testid="cancel-update-button" >
+          <button class="new-button cancel-form-button" type="button" (click)="closeUpdateModal()" data-testid="cancel-update-button" >
             <fa-icon class="update-icon icon" [icon]="faxMark"></fa-icon
             >Cancelar
           </button>
@@ -291,7 +291,7 @@
         </div>
         <div class="form-buttons">
           <button
-            class="new-button"
+            class="new-button save-form-button"
             style="margin-right: 1em"
             type="button"
             [disabled]="!newForm.valid"
@@ -301,7 +301,7 @@
             <fa-icon class="update-icon icon" [icon]="faFloppyDisk"></fa-icon
             >Guardar
           </button>
-          <button class="new-button" type="button" (click)="closeNewModal()" data-testid="cancel-post-button">
+          <button class="new-button cancel-form-button" type="button" (click)="closeNewModal()" data-testid="cancel-post-button">
             <fa-icon class="update-icon icon" [icon]="faxMark"></fa-icon
             >Cancelar
           </button>
