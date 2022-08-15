@@ -123,7 +123,7 @@ describe('TableComponent', () => {
      */
 
     const amountOfpokemons = component.pokemons.length;
-    expect(table.childNodes.length).toBe(amountOfpokemons+1);
+    expect(table.childNodes.length).toBe(amountOfpokemons + 1);
     expect(fakeTableService.getAllPokemons).toHaveBeenCalled();
   });
 
@@ -183,7 +183,7 @@ describe('TableComponent', () => {
     expect(modal).toBeDefined();
   });
 
-  it('Should open new modal and post a new pokemon, close newModal',  () => {
+  it('Should open new modal and post a new pokemon, close newModal', () => {
     spyOn(component, 'openNewModal').and.callThrough();
     spyOn(component, 'postPokemon').and.callThrough();
 
@@ -239,24 +239,24 @@ describe('TableComponent', () => {
     };
 
     fixture.detectChanges();
-    
 
     const postNewButton = getElementByTestId('submit-post-button', fixture);
     postNewButton.triggerEventHandler('click', null);
-    
+
     fixture.detectChanges();
+    const amountOfpokemons = component.pokemons.length;
+
+    
 
     expect(component.postPokemon).toHaveBeenCalled();
-    expect(component.pokemons[3]).toEqual(pokemonPostedData);
+    expect(component.pokemons[amountOfpokemons - 1]).toEqual(pokemonPostedData);
     expect(modal).toBeNull();
-
-    
   });
 
   it('Should open update modal form for update pokemon on click with pokemon values', () => {
     spyOn(component, 'openUpdateModal').and.callThrough();
 
-    const id = 2;
+    const id = component.pokemons.findIndex((pokemon) => pokemon.id == 2746);
     const pokemon = Arrpokemons[id];
 
     // Verificaremos con el tercer objeto del array de pruebas.
@@ -304,7 +304,7 @@ describe('TableComponent', () => {
     spyOn(component, 'openUpdateModal').and.callThrough();
     spyOn(component, 'updatePokemon').and.callThrough();
 
-    const id = 2;
+    const id = component.pokemons.findIndex((pokemon) => pokemon.id == 2746);
 
     // Verificaremos con el tercer objeto del array de pruebas.
     const newButton = getElementByTestId(`update-button-${id}`, fixture);
@@ -359,16 +359,34 @@ describe('TableComponent', () => {
 
     fixture.detectChanges();
 
-    
     const updateForm = getElementByTestId('submit-update-button', fixture);
 
     updateForm.triggerEventHandler('click', null);
-    
+
     fixture.detectChanges();
     const modal = getElementByTestId('update-modal', fixture);
     expect(component.updatePokemon).toHaveBeenCalled();
     expect(component.pokemons[id]).toEqual(pokemonUpdatedData);
     expect(modal).toBeNull();
+  });
+
+  it('Should delete pokemon with id', () => {
+    spyOn(component, 'deletePokemon').and.callThrough();
+    const id = 0;
+
+    const initialLength = component.pokemons.length;
+    const table = getElementByTestId('pokemons-table-rows', fixture);
+    const initialTableLength = table.childNodes.length;
+
+    const deleteButton = getElementByTestId(`delete-button-${id}`, fixture);
+
+    deleteButton.triggerEventHandler('click', null);
+
+    fixture.detectChanges();
+
+    expect(component.deletePokemon).toHaveBeenCalled();
+    expect(component.pokemons.length).toEqual(initialLength - 1);
+    expect(table.childNodes.length).toEqual(initialTableLength - 1);
   });
 });
 
